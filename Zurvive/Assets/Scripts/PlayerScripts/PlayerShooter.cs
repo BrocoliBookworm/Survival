@@ -35,6 +35,7 @@ public class PlayerShooter : MonoBehaviour
             if(shotAvailable)
             {
                 PistolShot();
+                shotAvailable = false;
             }
         }
 
@@ -56,8 +57,8 @@ public class PlayerShooter : MonoBehaviour
 
     private void PistolShot()
     {
-        // GameObject bullet = Instantiate(bulletPrefab, centralFirepoint.position, centralFirepoint.rotation); 
-        // Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>(); //Access the bullets rigidbody2d component
-        // rb.AddForce(centralFirepoint.up * bulletForce, ForceMode2D.Impulse); // Puts force on the bullet
+        GameObject bullet = Instantiate(bulletPrefab, centralFirepoint.position, centralFirepoint.rotation); 
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>(); //Access the bullets rigidbody2d component
+        rb.AddForce(centralFirepoint.up * bulletForce, ForceMode2D.Impulse); // Puts force on the bullet
     }
 }

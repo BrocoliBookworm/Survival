@@ -32,6 +32,20 @@ public class EnemyController : HealthManager
         }
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.GetComponent<EnemyController>())
+        {
+            return;
+        }
+
+        if(other.GetComponent<Bullet>())
+        {
+            CollideWithBullet(1);
+            return;
+        }
+    }
+
     public void Movement()
     {
         Vector3 pos = transform.position;
