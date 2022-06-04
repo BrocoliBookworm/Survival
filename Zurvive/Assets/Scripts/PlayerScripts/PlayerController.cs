@@ -6,7 +6,9 @@ public class PlayerController : HealthManager
 {
     public float speed = 10;
 
-    private int maxHealth;
+    private int maxHealth = 5;
+
+    private float invulnerableTimer = 0; // invulnerability from damage timer
 
     Vector3 velocity;
     // Start is called before the first frame update
@@ -20,11 +22,64 @@ public class PlayerController : HealthManager
     {
         Movement();
         FaceMouse();
+        Invulnerability();
 
         if(currentHealth <= 0)
         {
-            Die();
+            // Die();
         }
+
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(gameObject.layer == other.gameObject.layer)
+        {
+            return;
+        }
+
+        if(other.GetComponent<EnemyController>())
+        {
+            Debug.Log("HIT BY ENEMYCONTROLLER");
+            TakeDamage(1);
+            return;
+        }
+    }
+
+    public override void Invulnerability()
+    {
+        if(invulnerableTimer > 0)
+        {
+            invulnerableTimer -= Time.deltaTime;
+            Debug.Log(invulnerableTimer);
+
+            if(invulnerableTimer <= 0)
+            {
+                gameObject.layer = correctLayer;
+
+                if(spriteRend != null)
+                {
+                    spriteRend.enabled = true;
+                }
+            }
+            else
+            {
+                if(spriteRend != null)
+                {
+                    spriteRend.enabled = !spriteRend.enabled;
+                }
+            }
+        }
+    }
+
+    public override void TakeDamage(int damageTaken)
+    {
+        Debug.Log(currentHealth);
+        currentHealth = currentHealth - damageTaken;
+
+        invulnerableTimer = 2f;
+
+        gameObject.layer = 10;
     }
 
     public void Movement()
@@ -47,13 +102,11 @@ public class PlayerController : HealthManager
         transform.up = direction;
     }
 
-    public override void TakeDamage(int damageTaken)
-    {
-        currentHealth = currentHealth - damageTaken;
-    }
-
     public override void Die()
     {
-        
+        if(currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

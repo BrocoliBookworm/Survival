@@ -23,12 +23,34 @@ public class HealthManager : MonoBehaviour
         
     }
 
+    public void CheckSprite()
+    {
+        correctLayer = gameObject.layer;
+
+        spriteRend = GetComponent<SpriteRenderer>();
+
+        if(spriteRend == null)
+        {
+            spriteRend = transform.GetComponentInChildren<SpriteRenderer>();
+
+            if(spriteRend == null)
+            {
+                Debug.Log("Object " + gameObject.name + " has no sprite renderer");
+            }
+        }
+    }
+
     public virtual void Die()
     {
 
     }
 
     public virtual void HealthBoost()
+    {
+
+    }
+
+    public virtual void Invulnerability()
     {
 
     }

@@ -41,7 +41,7 @@ public class EnemyController : HealthManager
 
         if(other.GetComponent<Bullet>())
         {
-            CollideWithBullet(1);
+            TakeDamage(1);
             return;
         }
     }
@@ -85,7 +85,7 @@ public class EnemyController : HealthManager
         transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRot, rotationSpeed * Time.deltaTime);
     }
 
-    protected virtual void CollideWithBullet(int damageTaken)
+    public override void TakeDamage(int damageTaken)
     {
         currentHealth = currentHealth - damageTaken;
     }
