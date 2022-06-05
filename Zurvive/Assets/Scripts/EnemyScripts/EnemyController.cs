@@ -92,6 +92,8 @@ public class EnemyController : HealthManager
 
     public override void Die()
     {
+        EnemySpawner.Instance().currentEnemies--;
+        
         Destroy(gameObject);
     }
 }

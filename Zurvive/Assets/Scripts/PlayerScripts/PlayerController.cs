@@ -26,7 +26,7 @@ public class PlayerController : HealthManager
 
         if(currentHealth <= 0)
         {
-            // Die();
+            Die();
         }
 
     }
