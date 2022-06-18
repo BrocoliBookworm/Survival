@@ -5,9 +5,15 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     private static EnemySpawner _instance;
-    public GameObject enemyPrefab;
+    public GameObject walkerPrefab;
 
-    float enemyRate = 5.0f; // Timer for spawning the next enemy wave
+    public float walkerEnemyRate = 5.0f; // Timer for spawning the next enemy wave
+
+    public float runnerEnemyRate; 
+
+    public float tankEnemyRate; 
+
+    public float bossEnemyRate; 
 
     float nextEnemy = 1.0f; // Timer to spawning the next enemy 
 
@@ -51,12 +57,12 @@ public class EnemySpawner : MonoBehaviour
         if(nextEnemy <= 0)
         {
             Spawn();
-            nextEnemy = enemyRate;
-            enemyRate *= 0.9f;
+            nextEnemy = walkerEnemyRate;
+            walkerEnemyRate *= 0.9f;
 
-            if(enemyRate < 1)
+            if(walkerEnemyRate < 1)
             {
-                enemyRate = 1f;
+                walkerEnemyRate = 1f;
             }
         }
     }
@@ -85,17 +91,44 @@ public class EnemySpawner : MonoBehaviour
             Debug.Log("Spawn Amount: " + spawnAmount);
         }
 
-       for(int i = 0; i < spawnAmount; i++)
+       for(int i = 0; i <= spawnAmount; i++)
        {
            Vector3 offset = Random.onUnitSphere;
            offset.z = 0;
            offset = offset.normalized * spawnDistance;
 
-           Instantiate(enemyPrefab, transform.position + offset, Quaternion.identity);
+           Instantiate(walkerPrefab, transform.position + offset, Quaternion.identity);
            currentEnemies++;
        }
 
+       // maybe randomize the enemies spawned????? 
+
+       // multiple for loops is super time intensive. randomizing more efficient that way
+
+       // look at how spawn worked for Emergency Rescue, might be better method of using spawners
+
+       //if level 2 spawn walkers
+
+       // if level 3 spawn tanks
+
+       // spawn for every enemy
+
         wave++;
         Debug.Log("End Wave: " + wave);
+    }
+
+    void SpawnWalker()
+    {
+
+    }
+
+    void SpawnTank()
+    {
+
+    }
+
+    void SpawnBoss()
+    {
+
     }
 }
