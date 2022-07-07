@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject thePlayer;
 
+    public Transform playerLocation;
+
     public GameObject theBoss;
 
     public bool bossSpawn = false;
@@ -22,6 +24,10 @@ public class GameManager : MonoBehaviour
 
     private static bool playing = false;
 
+    public int score;
+
+    private int addScore = 10;  
+
     public static GameManager Instance()
     {
         if(_instance == null)
@@ -32,9 +38,6 @@ public class GameManager : MonoBehaviour
 
         return _instance;
     }
-
-    public int score;
-
     void Awake()
     {
         _instance = this;
@@ -44,11 +47,46 @@ public class GameManager : MonoBehaviour
     {
         playing = true;
         score = 0;
+
+        Instantiate(thePlayer, transform.position, Quaternion.identity);
+
+        playerLocation = thePlayer.transform; 
+
+    }
+
+    public void AddScore()
+    {
+        score += addScore;
+        // text update
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void WinGame()
+    {
+
+    }
+
+    public void EndGame()
+    {
+
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0f; 
+        gamePaused = true;
+        playing = false; 
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1f; 
+        gamePaused = false; 
+        playing = true; 
     }
 }

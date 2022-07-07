@@ -14,14 +14,14 @@ TagManager:
   - UI
   - Enemy
   - Player
-  - 
+  - Background
   - 
   - Invulnerability
   - 
   - 
   - 
   - 
-  - 
+  - Layout
   - 
   - 
   - 
@@ -41,4 +41,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Layout
+    uniqueID: 2727164765
+    locked: 0
+  - name: Background
+    uniqueID: 1084444797
+    locked: 0
+  - name: Actionable
+    uniqueID: 1300632423
     locked: 0

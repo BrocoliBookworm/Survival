@@ -13,6 +13,8 @@ public class WaveSpawner : MonoBehaviour
     {
         public string name;
         public Transform Walker;
+        public Transform Runner; 
+        public Transform Tank; 
         public int count;
         public float rate;
     }
@@ -21,12 +23,12 @@ public class WaveSpawner : MonoBehaviour
     private int nextWave = 0;
     private int cycleComplete = 0;
 
-    public Transform[] walkerSpawnPoints;
+    public Transform[] enemySpawnPoints;
 
     private float timerBetweenWaves = 10f;
     private float waveCountDown;
 
-    private float walkerSpawnDistance = 2f;
+    private float SpawnDistance = 7f;
 
     private Transform _sp;
 
@@ -109,12 +111,12 @@ public class WaveSpawner : MonoBehaviour
 
     void SpawnWalkers(Transform walker)
     {
-        Transform _spWalker = walkerSpawnPoints[Random.Range(0, walkerSpawnPoints.Length)];
+        Transform _spWalker = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length)];
 
         Vector3 offset = Random.onUnitSphere;
         offset.z = 0;
         
-        offset = offset.normalized * walkerSpawnDistance;
+        offset = offset.normalized * SpawnDistance;
 
         Instantiate(walker, _spWalker.position + offset, _spWalker.rotation);
     }
