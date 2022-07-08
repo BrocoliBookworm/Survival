@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : HealthManager
 {
@@ -14,10 +15,14 @@ public class EnemyController : HealthManager
 
     public Transform spawnPoint;
 
+    NavMeshAgent agent; 
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        agent = GetComponent<NavMeshAgent>(); 
+        agent.updateRotation = false;
+        agent.updateUpAxis = false; 
     }
 
     // Update is called once per frame
@@ -67,6 +72,7 @@ public class EnemyController : HealthManager
             if(target != null)
             {
                 player = target.transform;
+                agent.SetDestination(player.position);
             }
         }
         
@@ -75,14 +81,14 @@ public class EnemyController : HealthManager
             return; //Try again
         }
 
-        Vector3 dir = player.position - transform.position;
-        dir.Normalize();
+    //     Vector3 dir = player.position - transform.position;
+    //     dir.Normalize();
 
-        float zAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
+    //     float zAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
 
-        Quaternion desiredRot = Quaternion.Euler(0, 0, zAngle);
+    //     Quaternion desiredRot = Quaternion.Euler(0, 0, zAngle);
 
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRot, rotationSpeed * Time.deltaTime);
+    //     transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRot, rotationSpeed * Time.deltaTime);
     }
 
     public override void TakeDamage(int damageTaken)

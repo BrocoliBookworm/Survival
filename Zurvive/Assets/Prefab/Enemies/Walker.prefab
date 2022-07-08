@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6509691986314508684}
   - component: {fileID: 329215777}
   - component: {fileID: 6369196733526889224}
+  - component: {fileID: 495478053864276498}
   m_Layer: 0
   m_Name: Walker
   m_TagString: Untagged
@@ -101,6 +102,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.14927402, y: 0.14659247}
   m_EdgeRadius: 0
+--- !u!195 &495478053864276498
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6509691986314508687}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 7
+  m_Acceleration: 6
+  avoidancePriority: 50
+  m_AngularSpeed: 80
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &8872377572695989542
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,7 +193,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1300632423
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 1000
   m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
