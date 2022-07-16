@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8601877624191868030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.17463592, y: 8.298138, z: -0.65606606}
-  m_LocalScale: {x: 15, y: 15, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 8601877624240878462}
   m_Father: {fileID: 0}
@@ -52,7 +52,8 @@ MonoBehaviour:
   rotationSpeed: 75
   player: {fileID: 0}
   target: {fileID: 0}
-  speed: 4
+  explosionHit: 0
+  speed: 2
   spawnPoint: {fileID: 0}
 --- !u!50 &8601877624191868026
 Rigidbody2D:
@@ -85,7 +86,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -170,7 +171,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1300632423
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 1000
   m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 0.40980536, b: 0, a: 1}

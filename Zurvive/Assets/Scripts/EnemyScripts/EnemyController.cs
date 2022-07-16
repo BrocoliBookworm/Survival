@@ -7,9 +7,14 @@ public class EnemyController : HealthManager
 {
     public float rotationSpeed;
 
+    // where is the player
     public Transform player;
 
+    // target to chase
     public Transform target;
+
+    // hit with explosive bullet check
+    public bool explosionHit = false; 
 
     public float speed;
 
@@ -28,7 +33,7 @@ public class EnemyController : HealthManager
     // Update is called once per frame
     void Update()
     {
-        Movement();
+        // Movement();
         Target();
 
         if(currentHealth <= 0)
@@ -46,54 +51,77 @@ public class EnemyController : HealthManager
 
         if(other.GetComponent<Bullet>())
         {
-            TakeDamage(1);
             return;
+        }
+
+        if(other.GetComponent<MultiBullet>())
+        {
+            Debug.Log("hit multi");
+            Destroy(other.gameObject);
+            TakeDamage(1);
         }
     }
 
-    public void Movement()
-    {
-        Vector3 pos = transform.position;
+    // public void Movement()
+    // {
+    //     Vector3 pos = transform.position;
         
-        Vector3 velocity = new Vector3(0, speed * Time.deltaTime, 0);
+    //     Vector3 velocity = new Vector3(0, speed * Time.deltaTime, 0);
 
-        pos += transform.rotation * velocity;
+    //     pos += transform.rotation * velocity;
 
-        transform.position = pos;
-    }
+    //     transform.position = pos;
+    // }
 
     public void Target()
     {
+        // if the player is null
         if(player == null)
         {
-            //Find the player
+            //Find the player and make them the target
             target = GameObject.FindWithTag("Player").transform;
             
+            // if the target is not null 
             if(target != null)
             {
+                // the player is the target's transform
                 player = target.transform;
-                agent.SetDestination(player.position);
             }
         }
+
+        // your destination is player's (target's) transform
+        agent.SetDestination(player.position);
         
         if(player == null)
         {
             return; //Try again
         }
 
-    //     Vector3 dir = player.position - transform.position;
-    //     dir.Normalize();
+        // Vector3 dir = player.position - transform.position;
+        // dir.Normalize();
 
-    //     float zAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
+        // float zAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
 
-    //     Quaternion desiredRot = Quaternion.Euler(0, 0, zAngle);
+        // Quaternion desiredRot = Quaternion.Euler(0, 0, zAngle);
 
-    //     transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRot, rotationSpeed * Time.deltaTime);
+        // transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRot, rotationSpeed * Time.deltaTime);
+    }
+
+    // Cooldown on getting damaged by enemies
+    IEnumerator Cooldown()
+    {
+        yield return new WaitForSeconds(.2f);
+        explosionHit = false; 
     }
 
     public override void TakeDamage(int damageTaken)
     {
-        currentHealth = currentHealth - damageTaken;
+        if(!explosionHit)
+        {
+            explosionHit = true; 
+            currentHealth = currentHealth - damageTaken;
+            StartCoroutine(Cooldown()); 
+        }
     }
 
     public override void Die()

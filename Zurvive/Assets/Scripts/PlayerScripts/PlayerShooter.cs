@@ -8,131 +8,82 @@ public class PlayerShooter : MonoBehaviour
 
     public GameObject bulletPrefab;
 
-    public GameObject grenade; 
+    public bool hasMulti = false; // has multi shot ability
 
-    public int grenadesAvailable; 
+    public float reloadTime = 0.9f; // how long it takes the gun to reload
 
-    protected float pistolChamberTime = 0.5f; // how long it takes a bullet to go into the chamber of the pistol
+    public float multiShotCooldown = 1.5f; 
 
-    protected float rifleReloadTime = 0.3f; // how long it takes to reload the rifle
+    public bool shotAvailable = true; // can you currently shoot regular shots
 
-    public bool hasRifle = false;  // do you have the rifle
-
-    public bool rifleActive = false; // are you currently using the rifle
-
-    public int rifleAmmo; 
-
-    public int rifleCapacity; 
-
-    public bool shotAvailable = true; // can you currently shoot
+    public bool multiShotAvailable = true; // can you currently shoot multishot
 
     protected float bulletForce = 30f; // how fast do the bullets move
+
+    public GameObject multishotPrefab; 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        // if regular shot button is pressed
         if(Input.GetButton("Fire1"))
         {
-            if(hasRifle == false || rifleActive == false)
+            if(shotAvailable == true)
             {
-                if(shotAvailable == true)
-                {
-                    Shoot();
-                    shotAvailable = false;
-                }
-            } 
-            
-
-            // if the rifle is both acquired and active reload the rifle
-            if(hasRifle == true && rifleActive == true)
-            {
-                if(rifleAmmo > 0)
-                {
-                    rifleAmmo--;
-                    Shoot();
-                }
-                else
-                {
-                    RifleReload();
-                }
+                Shoot();
+                shotAvailable = false;
             }
         }   
+        
+        Reload();  
 
-        Reload();   
-
-        if(Input.GetButtonDown("Reload"))
-        {
-            RifleReload();
-        }
-
+        // if multi-shot button pressed
         if(Input.GetButton("Fire2"))
         {
-            if(grenadesAvailable > 0)
-            {
-                ThrowGrenade();
+            if(hasMulti == true && multiShotAvailable == true)
+            {  
+                MultiShoot();
+                multiShotAvailable = false; 
             }
+        }
+
+        if(multiShotAvailable != true)
+        {
+            MultiReload(); 
         }
     }
 
-    //reload the pistol
+    //reload timer functionality
     private void Reload()
     {
-        pistolChamberTime -= Time.deltaTime;
+        reloadTime -= Time.deltaTime;
 
-        if(pistolChamberTime <= 0)
+        if(reloadTime <= 0)
         {
-            pistolChamberTime = 0.5f; 
+            reloadTime = 0.9f; 
             shotAvailable = true; 
         }
     }
 
-    private void RifleReload()
+    // reload timer functionality for the multi-shot ability
+    private void MultiReload()
     {
-        if(rifleCapacity >= 30)
+        multiShotCooldown -= Time.deltaTime; 
+
+        if(multiShotCooldown <= 0)
         {
-            rifleAmmo = 30;
-            rifleCapacity -= 30;
-        }
-        else
-        {
-            rifleAmmo = rifleCapacity;
-            rifleCapacity = 0; 
+            multiShotAvailable = true; 
+            multiShotCooldown = 1.5f;
         }
     }
 
-    // private void ShotSelect()
-    // {
-        // test shot available here
-        // if(hasRifle == false)
-        // {
-        //     if(shotAvailable)
-        //     {
-        //         shotAvailable = false;
-        //         Shoot();
-        //     }   
-        // }
-        
-    //     if(hasRifle == true)
-    //     {s
-    //         if(rifleActive == true)
-    //         {
-    //             shotAvailable = false;
-    //             RifleShot();
-    //         }
-    //         else
-    //         {
-    //             shotAvailable = false;                
-    //             PistolShot();
-    //         }
-    //     }
-    // }
-
+    // player fires explosive shot
     private void Shoot()
     {
         GameObject bullet = Instantiate(bulletPrefab, centralFirepoint.position, centralFirepoint.rotation); 
@@ -140,9 +91,15 @@ public class PlayerShooter : MonoBehaviour
         rb.AddForce(centralFirepoint.up * bulletForce, ForceMode2D.Impulse); // Puts force on the bullet
     }
 
-    //Throws the Grenade
-    public void ThrowGrenade()
+    //Fires MultiShoot
+    public void MultiShoot()
     {
-
+        GameObject multiBullet = Instantiate(multishotPrefab, centralFirepoint.position, centralFirepoint.rotation);
+        Rigidbody2D[] rb = multiBullet.GetComponentsInChildren<Rigidbody2D>();
+        
+        for(int i = 0; i < rb.Length; i++)
+        {
+            rb[i].AddForce(rb[i].transform.up * bulletForce, ForceMode2D.Impulse);
+        }
     }
 }

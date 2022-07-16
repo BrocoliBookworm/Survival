@@ -5,10 +5,11 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     private static EnemySpawner _instance;
-    public GameObject walkerPrefab;
+    public GameObject walkerPrefab; // walker enemy
 
     public float walkerEnemyRate = 5.0f; // Timer for spawning the next enemy wave
 
+    // spawning enemy rates
     public float runnerEnemyRate; 
 
     public float tankEnemyRate; 
@@ -17,9 +18,9 @@ public class EnemySpawner : MonoBehaviour
 
     float nextEnemy = 1.0f; // Timer to spawning the next enemy 
 
-    float spawnDistance = 10.0f; // How far to spawn enemies
+    float spawnDistance = 2.0f; // How far to spawn enemies
 
-    public int spawnAmount;
+    public int spawnAmount; // how many do you spawn
 
     [SerializeField]
     private int multiplierEffect = 1;
@@ -54,13 +55,14 @@ public class EnemySpawner : MonoBehaviour
     {
         nextEnemy -= Time.deltaTime;
 
+        // if the timer to spawning the next enemy is <= 0 spawn enemies
         if(nextEnemy <= 0)
         {
             Spawn();
-            nextEnemy = walkerEnemyRate;
-            walkerEnemyRate *= 0.9f;
+            nextEnemy = walkerEnemyRate; // reset the timer
+            walkerEnemyRate *= 0.9f; // decrease the timer by 10%
 
-            if(walkerEnemyRate < 1)
+            if(walkerEnemyRate < 1) // if the timer is less than 1 set it to 1
             {
                 walkerEnemyRate = 1f;
             }

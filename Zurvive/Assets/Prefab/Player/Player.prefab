@@ -298,10 +298,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centralFirepoint: {fileID: 1538133647}
   bulletPrefab: {fileID: 8259282025922508939, guid: 1c88969b27faa9443b2633cba5e8a86a, type: 3}
-  grenade: {fileID: 0}
-  grenadesAvailable: 0
-  hasRifle: 1
-  rifleActive: 1
-  rifleAmmo: 20
-  rifleCapacity: 30
+  hasMulti: 1
+  reloadTime: 0.9
+  multiShotCooldown: 1.5
   shotAvailable: 1
+  multiShotAvailable: 1
+  multishotPrefab: {fileID: 2984004093159195013, guid: b77d3ee9a398ca548922b7a850752a75, type: 3}

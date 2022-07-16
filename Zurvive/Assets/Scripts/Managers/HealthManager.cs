@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealthManager : MonoBehaviour
 {
-
+    // current health of gameobject
     public int currentHealth;
 
     public int correctLayer;
@@ -23,6 +23,7 @@ public class HealthManager : MonoBehaviour
         
     }
 
+    // are you on the correct sprite layer
     public void CheckSprite()
     {
         correctLayer = gameObject.layer;
