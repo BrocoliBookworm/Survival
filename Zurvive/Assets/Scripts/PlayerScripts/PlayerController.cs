@@ -54,16 +54,21 @@ public class PlayerController : HealthManager
             return;
         }
 
-        // if you touch the collectible pick it up
-        if(other.GetComponent<Collectibles>())
+        // if you touch the multi shot collectible pick it up
+        if(other.gameObject.layer == 18)
         {
-            GameManager.Instance().Collected(); 
+            GameManager.Instance().MultiCollected(); 
         }
 
-        // if you touch the barrier & you've collected all the collectibles go to the next level
-        if(other.gameObject.layer == 16 && GameManager.Instance().collectibleRequired == true)
-        { 
-            GameManager.Instance().NextLevel(); 
+        // if you touch the rail gun collectible pick it up
+        if(other.gameObject.layer == 20)
+        {
+            GameManager.Instance().PowerCollected(); 
+        }
+
+        if(other.GetComponent<PowerUp>())
+        {
+            HealthBoost(); 
         }
     }
 
@@ -121,7 +126,7 @@ public class PlayerController : HealthManager
     }
 
     // player faces the direction of the mouse
-    void FaceMouse()
+    public void FaceMouse()
     {
         Vector3 mousePosition = Input.mousePosition;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -136,5 +141,10 @@ public class PlayerController : HealthManager
         {
             Destroy(gameObject);
         }
+    }
+
+    public override void HealthBoost()
+    {
+        currentHealth++;
     }
 }

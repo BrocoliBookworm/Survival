@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 8601877624191868029}
   - component: {fileID: 8601877624191868026}
   - component: {fileID: 8601877624191868027}
-  m_Layer: 0
+  - component: {fileID: 1546098581}
+  m_Layer: 6
   m_Name: Tank
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 8601877624191868030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.17463592, y: 8.298138, z: -0.65606606}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 8601877624240878462}
   m_Father: {fileID: 0}
@@ -53,7 +54,7 @@ MonoBehaviour:
   player: {fileID: 0}
   target: {fileID: 0}
   explosionHit: 0
-  speed: 2
+  speed: 0
   spawnPoint: {fileID: 0}
 --- !u!50 &8601877624191868026
 Rigidbody2D:
@@ -102,6 +103,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.13845596, y: 0.13727322}
   m_EdgeRadius: 0
+--- !u!195 &1546098581
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8601877624191868030}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 2
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &8601877624240878463
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,9 +135,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8601877624240878462}
   - component: {fileID: 8601877624240878461}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

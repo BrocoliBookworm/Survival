@@ -13,7 +13,7 @@ public class EnemyController : HealthManager
     // target to chase
     public Transform target;
 
-    // hit with explosive bullet check
+    // hit with explosive bullet or power bullet check
     public bool explosionHit = false; 
 
     public float speed;

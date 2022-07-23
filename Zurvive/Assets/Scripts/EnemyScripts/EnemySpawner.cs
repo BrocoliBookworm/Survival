@@ -6,8 +6,10 @@ public class EnemySpawner : MonoBehaviour
 {
     private static EnemySpawner _instance;
     public GameObject walkerPrefab; // walker enemy
+    public GameObject tankPrefab; // tank enemy
+    public GameObject runnerPrefab; // runner enemy
 
-    public float walkerEnemyRate = 5.0f; // Timer for spawning the next enemy wave
+    public float EnemyRate = 10.0f; // Timer for spawning the next enemy wave
 
     // spawning enemy rates
     public float runnerEnemyRate; 
@@ -59,12 +61,12 @@ public class EnemySpawner : MonoBehaviour
         if(nextEnemy <= 0)
         {
             Spawn();
-            nextEnemy = walkerEnemyRate; // reset the timer
-            walkerEnemyRate *= 0.9f; // decrease the timer by 10%
+            nextEnemy = EnemyRate; // reset the timer
+            EnemyRate *= 0.9f; // decrease the timer by 10%
 
-            if(walkerEnemyRate < 1) // if the timer is less than 1 set it to 1
+            if(EnemyRate < 4) // if the timer is less than 1 set it to 1
             {
-                walkerEnemyRate = 1f;
+                EnemyRate = 4f;
             }
         }
     }
@@ -93,15 +95,26 @@ public class EnemySpawner : MonoBehaviour
             Debug.Log("Spawn Amount: " + spawnAmount);
         }
 
-       for(int i = 0; i <= spawnAmount; i++)
-       {
-           Vector3 offset = Random.onUnitSphere;
-           offset.z = 0;
-           offset = offset.normalized * spawnDistance;
-
-           Instantiate(walkerPrefab, transform.position + offset, Quaternion.identity);
-           currentEnemies++;
-       }
+        for(int i = 0; i <= spawnAmount; i++)
+        {
+            Vector3 offset = Random.onUnitSphere;
+            offset.z = 0;
+            offset = offset.normalized * spawnDistance;
+            
+            if(Random.value > 0.4)
+            {
+                Instantiate(walkerPrefab, transform.position + offset, Quaternion.identity);
+            }
+            else if(Random.value > 0.5)
+            {
+                Instantiate(runnerPrefab, transform.position + offset, Quaternion.identity);
+            }
+            else if(Random.value > 0.6)
+            {
+                Instantiate(tankPrefab, transform.position + offset, Quaternion.identity);
+            }
+            currentEnemies++;
+        }
 
        // maybe randomize the enemies spawned????? 
 

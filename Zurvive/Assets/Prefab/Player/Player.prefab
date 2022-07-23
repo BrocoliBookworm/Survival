@@ -223,7 +223,7 @@ Transform:
   m_GameObject: {fileID: 4217064227923393970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 1306349062}
   - {fileID: 1766506644}
@@ -246,7 +246,8 @@ MonoBehaviour:
   currentHealth: 2
   correctLayer: 7
   spriteRend: {fileID: 0}
-  speed: 10
+  speed: 5
+  rb2d: {fileID: 4217064229971697406}
 --- !u!50 &4217064229971697406
 Rigidbody2D:
   serializedVersion: 4
@@ -298,9 +299,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centralFirepoint: {fileID: 1538133647}
   bulletPrefab: {fileID: 8259282025922508939, guid: 1c88969b27faa9443b2633cba5e8a86a, type: 3}
-  hasMulti: 1
+  hasMulti: 0
   reloadTime: 0.9
   multiShotCooldown: 1.5
+  hasPowerGun: 0
+  powerGunRecharge: 15
+  powerGunAvailable: 1
   shotAvailable: 1
   multiShotAvailable: 1
   multishotPrefab: {fileID: 2984004093159195013, guid: b77d3ee9a398ca548922b7a850752a75, type: 3}
+  powerGunPrefab: {fileID: 7343323224154290066, guid: 04ab81b5260529c4f85c858e921244f9, type: 3}

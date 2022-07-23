@@ -29,13 +29,27 @@ public class GameManager : MonoBehaviour
 
     public int score;
 
+    public GameObject powerGunHolder; // holder for the power gun transform 
+
+    // reference to player controller
+    public PlayerShooter playerShoot; 
+
     private int addScore = 10;  
 
-    // how many collectibles have you collected
-    public int collectiblesCollected = 0; 
+    // how many multishot collectibles have you collected
+    public int multiCollect = 0; 
 
-    // do you have the required amount of collectibles to progress to the next level
-    public bool collectibleRequired = false; 
+    // how many power gun collectibles have you collected
+    public int powerCollect = 0; 
+
+    // how many turret supplies have you collected
+    public int turretCollect = 0; 
+
+    // do you have the required amount of collectibles to unlock the power Gun weapon
+    public bool powerGunAcquired = false; 
+
+    // do you have enough supplies to place a turret
+    public bool turretPlace = false; 
 
     public static GameManager Instance() // creates a singular instance of a gamemanager
     {
@@ -56,6 +70,9 @@ public class GameManager : MonoBehaviour
     {
         playing = true;
         score = 0;
+        GameObject shot = GameObject.FindGameObjectWithTag("Player");
+
+        playerShoot = shot.GetComponent<PlayerShooter>();
 
         // Instantiate(thePlayer, transform.position, Quaternion.identity);
 
@@ -124,14 +141,26 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
     }
 
-    // ran when a player picks up a collectible
-    public void Collected()
+    // ran when a player picks up a multishot collectible
+    public void MultiCollected()
     {
-        collectiblesCollected++; 
+        multiCollect++; 
 
-        if(collectiblesCollected >= 4)
+        if(multiCollect >= 4) // if you have the multi shot requirements set it active
         {
-            collectibleRequired = true;   
+            playerShoot.hasMulti = true;
+            powerGunHolder.SetActive(true);  
+        }
+    }
+
+    // ran when a player picks up a power gun collectible
+    public void PowerCollected()
+    {
+        powerCollect++;
+
+        if(powerCollect >= 4)
+        {
+            playerShoot.hasPowerGun = true; 
         }
     }
 }

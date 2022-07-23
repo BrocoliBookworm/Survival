@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bullet
+  - Enemy
+  - HealthPickup
   layers:
   - Default
   - TransparentFX
@@ -23,10 +25,10 @@ TagManager:
   - 
   - Layout
   - Passing
-  - 
-  - 
-  - 
-  - 
+  - Barrier
+  - MultiShot
+  - Turret
+  - PowerGun
   - 
   - 
   - 

@@ -14,13 +14,28 @@ public class PlayerShooter : MonoBehaviour
 
     public float multiShotCooldown = 1.5f; 
 
+    public bool hasPowerGun = false; // do you have the power gun weapon
+
+    public float powerGunRecharge = 15.0f; // time to recharge your power gun weapon
+
+    public bool powerGunAvailable = true; // you can currently shoot the power gun
+
     public bool shotAvailable = true; // can you currently shoot regular shots
 
     public bool multiShotAvailable = true; // can you currently shoot multishot
 
     protected float bulletForce = 30f; // how fast do the bullets move
 
+    protected float powerBulletForce = 5; // how fast do power bullets move
+
     public GameObject multishotPrefab; 
+
+    public GameObject powerGunPrefab; 
+
+    public void Awake()
+    {
+
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +56,10 @@ public class PlayerShooter : MonoBehaviour
             }
         }   
         
-        Reload();  
+        if(shotAvailable != true)
+        {
+            Reload();  
+        }
 
         // if multi-shot button pressed
         if(Input.GetButton("Fire2"))
@@ -56,6 +74,22 @@ public class PlayerShooter : MonoBehaviour
         if(multiShotAvailable != true)
         {
             MultiReload(); 
+        }
+
+        // if railgun button pressed
+        if(Input.GetButton("Fire3"))
+        {
+            if(hasPowerGun && powerGunAvailable)
+            {
+                Debug.Log("In power gun"); 
+                PowerGunShoot();
+                powerGunAvailable = false; 
+            }
+        }
+
+        if(powerGunAvailable != true)
+        {
+            PowerGunReload();
         }
     }
 
@@ -83,6 +117,18 @@ public class PlayerShooter : MonoBehaviour
         }
     }
 
+    // reload timer functionality for power gun ability
+    private void PowerGunReload()
+    {
+        powerGunRecharge -= Time.deltaTime;
+        
+        if(powerGunRecharge <= 0)
+        {
+            powerGunAvailable = true; 
+            powerGunRecharge = 15.0f;
+        }
+    }
+
     // player fires explosive shot
     private void Shoot()
     {
@@ -101,5 +147,13 @@ public class PlayerShooter : MonoBehaviour
         {
             rb[i].AddForce(rb[i].transform.up * bulletForce, ForceMode2D.Impulse);
         }
+    }
+
+    public void PowerGunShoot()
+    {
+        Debug.Log("In power gun shot"); 
+        GameObject powerBullet = Instantiate(powerGunPrefab, centralFirepoint.position, centralFirepoint.rotation);
+        Rigidbody2D rb = powerBullet.GetComponent<Rigidbody2D>(); 
+        rb.AddForce(centralFirepoint.up * powerBulletForce, ForceMode2D.Impulse); 
     }
 }
